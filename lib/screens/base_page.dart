@@ -4,8 +4,9 @@ import '../widgets/commons/top_bar.dart';
 
 class BasePage extends StatelessWidget {
   final List<Widget> children;
+  final bool topbarActive;
 
-  const BasePage({super.key, required this.children});
+  const BasePage({super.key, required this.children, this.topbarActive = true});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class BasePage extends StatelessWidget {
             width: MediaQuery.of(context).size.width - 32,
             child: Column(
               children: [
-                TopBar(),
+                if (topbarActive) TopBar(),
                 ...children,
               ],
             ),
