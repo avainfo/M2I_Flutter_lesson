@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/commons/top_bar.dart';
+
 class BasePage extends StatelessWidget {
   final List<Widget> children;
+
   const BasePage({super.key, required this.children});
 
   @override
@@ -13,7 +16,10 @@ class BasePage extends StatelessWidget {
           child: SizedBox(
             width: MediaQuery.of(context).size.width - 32,
             child: Column(
-              children: children,
+              children: [
+                TopBar(),
+                ...children,
+              ],
             ),
           ),
         ),
