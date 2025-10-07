@@ -11,11 +11,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(
-            left: 16,
-            top: 16,
-            bottom: 16,
-          ),
+          padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
           child: SizedBox(
             width: MediaQuery.of(context).size.width - 32,
             child: Column(
