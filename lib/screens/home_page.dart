@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lesson_m2i_lyon_flutter/screens/base_page.dart';
+import 'package:lesson_m2i_lyon_flutter/widgets/navigation_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -8,6 +9,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BasePage(
       children: [
+        NavigationCard(),
+        NavigationCard(),
+        NavigationCard(),
       ],
     );
   }
