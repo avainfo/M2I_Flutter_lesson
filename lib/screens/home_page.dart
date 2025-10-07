@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lesson_m2i_lyon_flutter/widgets/welcome_text.dart';
 
 import '../widgets/profile_icon.dart';
 
@@ -26,28 +27,7 @@ class HomePage extends StatelessWidget {
                     spacing: 16,
                     children: [
                       ProfileIcon(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Bonjour",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black.withAlpha(180),
-                              fontWeight: FontWeight.w100,
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            "Antonin Do Souto",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ],
-                      ),
+                      WelcomeText(),
                     ],
                   ),
                 ),
