@@ -1,12 +1,27 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lesson_m2i_lyon_flutter/models/todo.dart';
 import 'package:lesson_m2i_lyon_flutter/screens/base_page.dart';
 import 'package:http/http.dart' as http;
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late var db;
+
+  @override
+  void initState() {
+    super.initState();
+    db = FirebaseFirestore.instance;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +49,32 @@ class HomePage extends StatelessWidget {
             print(jsonResponse["title"]);
             var todo = Todo.fromJson(jsonResponse);
             print(todo.title);
+
+            final user = <String, dynamic>{
+              "first": "Ada",
+              "last": "Lovelace",
+              "born": 1815,
+            };
+            /* {
+             *   "first": "Ada",
+             *   "last": "Lovelace",
+             *   "born": 1815
+             * }
+             */
+
+            db
+                .collection("users")
+                .add(user)
+                .then(
+                  (DocumentReference doc) =>
+                      print('DocumentSnapshot added with ID: ${doc.id}'),
+                );
+
+            await db.collection("users").get().then((event) {
+              for (var doc in event.docs) {
+                print("${doc.id} => ${doc.data()}");
+              }
+            });
           },
           child: Text("Faire la requête"),
         ),
@@ -47,9 +88,6 @@ class HomePage extends StatelessWidget {
     );
     var jsonResponse = json.decode(res.body);
     var todo = Todo.fromJson(jsonResponse);
-    print("test0");
-    await Future.delayed(Duration(seconds: 5));
-    print("test1");
     return todo;
   }
 }
