@@ -10,22 +10,25 @@ class NavigationButtonsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return NavigationCard(
-          icon: IconsHelper.NAVIGATION_ICONS[index],
-          event: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    NavigationHelper.NAVIGATIONS_WIDGETS[index],
-              ),
-            );
-          },
-        );
-      },
-      itemCount: 3,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height - 75 - 32,
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return NavigationCard(
+            icon: IconsHelper.NAVIGATION_ICONS[index],
+            event: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      NavigationHelper.NAVIGATIONS_WIDGETS[index],
+                ),
+              );
+            },
+          );
+        },
+        itemCount: 3,
+      ),
     );
   }
 }
