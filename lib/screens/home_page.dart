@@ -23,7 +23,6 @@ class HomePage extends StatelessWidget {
         FutureBuilder(
           future: getData(),
           builder: (context, snapshot) => Text((snapshot.data as Todo).title),
-          initialData: Text("Chargement..."),
         ),
         ElevatedButton(
           onPressed: () async {
