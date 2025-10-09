@@ -19,6 +19,12 @@ class HomePage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        Text("Todo(id): Name [userId] {X}"),
+        FutureBuilder(
+          future: getData(),
+          builder: (context, snapshot) => Text((snapshot.data as Todo).title),
+          initialData: Text("Chargement..."),
+        ),
         ElevatedButton(
           onPressed: () async {
             final res = await http.get(
@@ -34,5 +40,17 @@ class HomePage extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Future<Todo> getData() async {
+    final res = await http.get(
+      Uri.https("jsonplaceholder.typicode.com", "/todos/15"),
+    );
+    var jsonResponse = json.decode(res.body);
+    var todo = Todo.fromJson(jsonResponse);
+    print("test0");
+    await Future.delayed(Duration(seconds: 5));
+    print("test1");
+    return todo;
   }
 }
