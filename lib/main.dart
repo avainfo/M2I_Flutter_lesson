@@ -5,6 +5,7 @@ import 'package:lesson_m2i_lyon_flutter/screens/home_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

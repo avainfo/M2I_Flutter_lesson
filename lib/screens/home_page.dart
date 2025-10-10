@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lesson_m2i_lyon_flutter/models/todo.dart';
 import 'package:lesson_m2i_lyon_flutter/screens/base_page.dart';
+import 'package:location/location.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,10 +35,10 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Text("Todo(id): Name [userId] {X}"),
-        FutureBuilder(
-          future: getData(),
-          builder: (context, snapshot) => Text((snapshot.data as Todo).title),
-        ),
+        // FutureBuilder(
+        //   future: getData(),
+        //   builder: (context, snapshot) => Text((snapshot.data as Todo).title),
+        // ),
         ElevatedButton(
           onPressed: () async {
             final res = await http.get(
@@ -76,6 +77,39 @@ class _HomePageState extends State<HomePage> {
             });
           },
           child: Text("Faire la requête"),
+        ),
+        ElevatedButton(
+          onPressed: () async {
+            Location location = Location();
+
+            bool serviceEnabled;
+            PermissionStatus permissionGranted;
+
+            serviceEnabled = await location.serviceEnabled();
+            if (!serviceEnabled) {
+              serviceEnabled = await location.requestService();
+              if (!serviceEnabled) {
+                return;
+              }
+            }
+
+            permissionGranted = await location.hasPermission();
+            if (permissionGranted == PermissionStatus.denied) {
+              permissionGranted = await location.requestPermission();
+              if (permissionGranted != PermissionStatus.granted) {
+                return;
+              }
+            }
+
+            location.onLocationChanged.listen(
+              (LocationData currentLocation) {
+                print(currentLocation.latitude);
+                print(currentLocation.longitude);
+
+              },
+            );
+          },
+          child: Text("Récupérer la localisation"),
         ),
       ],
     );
